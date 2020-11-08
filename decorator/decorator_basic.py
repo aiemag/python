@@ -13,11 +13,11 @@ def decorator(func):
 
 @decorator
 def test1():
-    print("test function")
+    print("test1 function")
 
 
 def test2():
-    print("test function")
+    print("test2 function")
 
 
 def main():
