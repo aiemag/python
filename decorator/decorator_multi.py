@@ -5,8 +5,8 @@ from functools import wraps
 
 def decorator1(func):
 
-    def wrapper():
-        ret = func()
+    def wrapper(*args, **kwargs):
+        ret = func(*args, **kwargs)
         print("decorator1() func name : %s" % func.__name__)
         
         return ret
@@ -16,9 +16,9 @@ def decorator1(func):
 
 def decorator2(func):
 
-    def wrapper():
+    def wrapper(*args, **kwargs):
         start = time.time()
-        ret = func()
+        ret = func(*args, **kwargs)
         end = time.time()
         print("%s" % str(end - start))
         print("decorator2() func name : %s" % func.__name__)
@@ -31,8 +31,8 @@ def decorator2(func):
 def decorator3(func):
 
     @wraps(func)
-    def wrapper():
-        ret = func()
+    def wrapper(*args, **kwargs):
+        ret = func(*args, **kwargs)
         print("decorator3 is called.")
         print("decorator3() func name : %s" % func.__name__)
 
@@ -44,12 +44,12 @@ def decorator3(func):
 @decorator1
 @decorator2
 @decorator3
-def test():
-    time.sleep(3)
+def test(value):
+    time.sleep(value)
 
 
 def main():
-    test()
+    test(3)
 
 
 if __name__ == "__main__":
