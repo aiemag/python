@@ -17,12 +17,17 @@ class DecoratorClass:
         
 
 @DecoratorClass
-def test(value):
-    print("test :",value)
+def test1(value):
+    print("test1 :",value)
+
+
+def test2(value):
+    print("test2 :",value)
 
 
 def main():
-    test(7)
+    test1(7)
+    DecoratorClass(test2)(5)
 
 
 if __name__ == "__main__":
