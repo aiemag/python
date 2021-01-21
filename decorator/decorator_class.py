@@ -12,6 +12,7 @@ class DecoratorClass:
         print("before")
         ret = self.func(*args, **kwargs)
         print("after")
+        print(self.func.__name__," function called")
 
         return ret
         
