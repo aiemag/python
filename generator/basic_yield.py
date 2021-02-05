@@ -12,6 +12,8 @@ def gen2():
 
     while True:
         v = yield v
+        print("-----------")
+        print("v : ", v)
 
 
 def main():
