@@ -27,8 +27,8 @@ def test_more(f):
             init_t += init_t_
             process_t += process_t_
 
-        print("average - init time : %s, process time : %s, total : %s\n" % 
-            (init_t/count, process_t/count, total/count))
+        print("%s average - init time : %s, process time : %s, total : %s\n" % 
+            (f.__name__, init_t/count, process_t/count, total/count))
 
     return inner
 
