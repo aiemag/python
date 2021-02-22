@@ -14,6 +14,11 @@ def process():
     print(df)
     print('\n')
 
+    print("filtered df")
+    df_filtered = df[df['B']==1][df['C']==1]
+    print(df_filtered)
+    print('\n')
+
     print("inplace=True")
     df_filtered = df[df['B']==1][df['C']==1]
     df_rst = df_filtered.reset_index(inplace=True)
@@ -37,7 +42,7 @@ def process():
 
     print("inplace=False, drop=True")
     df_filtered = df[df['B']==1][df['C']==1]
-    df_rst = df_filtered.reset_index(inplace=True, drop=True)
+    df_rst = df_filtered.reset_index(inplace=False, drop=True)
     print(df_rst)
     print(df_filtered)
     print('\n')
