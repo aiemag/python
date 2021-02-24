@@ -21,6 +21,12 @@ def blocking_lock(lock):
             logging.debug("Release")
             lock.release()
 
+#    while True:
+#        time.sleep(1)
+#        with lock:
+#            logging.debug("Grab it")
+#            time.sleep(0.5)
+
 
 def nonblocking_lock(lock):
     logging.debug("Start nonblocking lock")
