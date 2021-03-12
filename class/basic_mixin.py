@@ -54,18 +54,9 @@ def process2():
     foo2.showC()
 
 
-# Mixin - Can't implement Mixin with single inheritance
-def process3():
-    print('\n##### Polymorphism #####')
-
-    c = C(A)
-    c.showC()
-
-
 def main():
     process1()
     process2()
-    process3()
     
 
 if __name__ == "__main__":
