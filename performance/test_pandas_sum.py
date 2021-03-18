@@ -41,26 +41,32 @@ def process1():
     print("result : ", result)
 
 
-def worker(q):
-    q.put(sum(q.get()))
+def worker(q, data):
+    q.put(sum(data))
 
 
 def process2():
     q = multiprocessing.Queue()
 
     data = df['A'].tolist()
-    q.put(data[:500000])
-    q.put(data[500000:])
 
-    p1 = multiprocessing.Process(target=worker, args=(q,))
+    p1 = multiprocessing.Process(target=worker, args=(q,data[:250000]))
     p1.start()
-    p2 = multiprocessing.Process(target=worker, args=(q,))
+    p2 = multiprocessing.Process(target=worker, args=(q,data[250000:500000]))
     p2.start()
+    p3 = multiprocessing.Process(target=worker, args=(q,data[500000:750000]))
+    p3.start()
+    p4 = multiprocessing.Process(target=worker, args=(q,data[750000:]))
+    p4.start()
 
     p1.join()
     p2.join()
+    p3.join()
+    p4.join()
 
     result = q.get()
+    result += q.get()
+    result += q.get()
     result += q.get()
     print("result : ", result)
 
