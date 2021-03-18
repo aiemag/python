@@ -2,6 +2,7 @@
 
 import pandas as pd
 import time
+import concurrent.futures
 import multiprocessing
 from functools import reduce
 
@@ -35,33 +36,43 @@ def load_data():
 def process1():
     global df
 
-    df = df[df['A']%2==0]    
+    #df = df[df['A']%2==0]    
     result = df['A'].sum()
     print("result : ", result)
 
 
-g_result = 0
-
-def worker(x):
-    global g_result
-    g_result += x 
+def worker(q):
+    q.put(sum(q.get()))
 
 
 def process2():
+    q = multiprocessing.Queue()
 
-    pool = multiprocessing.Pool(processes=2) 
-    result = pool.map(worker, df['A'].tolist())
+    data = df['A'].tolist()
+    q.put(data[:500000])
+    q.put(data[500000:])
 
-    print("g_result : ", g_result)
+    p1 = multiprocessing.Process(target=worker, args=(q,))
+    p1.start()
+    p2 = multiprocessing.Process(target=worker, args=(q,))
+    p2.start()
+
+    p1.join()
+    p2.join()
+
+    result = q.get()
+    result += q.get()
+    print("result : ", result)
 
 
 def main():
-    stime = time.time()
 
     #make_data() 
     load_data()
-    process1()
-    #process2()
+
+    stime = time.time()
+    #process1()
+    process2()
 
     print("Elapsed time : ",time.time() - stime)
 
