@@ -34,15 +34,26 @@ def load_data():
 
 
 def process1():
-    global df
+    # 1. fastest than multi processing
+    #result = df['A'].sum() 
+    
+    data = df['A'].tolist()
+    # 2. faster than multi processing
+    #result = sum(data)
 
-    #df = df[df['A']%2==0]    
-    result = df['A'].sum()
+    # 3. slower than multi processing
+    result = 0
+    for i in range(0, len(data)):
+        result += data[i] 
     print("result : ", result)
 
 
 def worker(q, data):
-    q.put(sum(data))
+    result = 0
+    for i in range(0, len(data)):
+        result += data[i] 
+    q.put(result)
+    #q.put(sum(data))
 
 
 def process2():
