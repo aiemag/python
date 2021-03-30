@@ -77,10 +77,12 @@ def main():
     load_data()
 
     stime = time.time()
-    #process1()
-    process2()
+    process1()
+    print("single elapsed time : ",time.time() - stime)
 
-    print("Elapsed time : ",time.time() - stime)
+    stime = time.time()
+    process2()
+    print("multi elapsed time : ",time.time() - stime)
 
 
 if __name__ == "__main__":
