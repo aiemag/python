@@ -4,19 +4,26 @@ import os
 import time
 
 data = []
-for i in range(0,10000000):
+for i in range(0,1000):
     data.append(i)
+
+
+def do_sth(x):
+    time.sleep(0.001)
+    return x
 
 
 def do_single_processing(data):
     result = []
     for i in range(0, len(data)):
+        data[i] = do_sth(data[i])
         result.append(data[i]*data[i])
 
     return result
 
 
 def do_multi_processing(x):
+    x = do_sth(x)
     return x*x
 
 
