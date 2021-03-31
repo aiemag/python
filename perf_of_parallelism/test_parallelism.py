@@ -69,15 +69,16 @@ def process2():
 
     p1 = multiprocessing.Process(target=worker_for_process, args=(q,data[:2500], 0))
     p1.start()
-    p1.join()
     p2 = multiprocessing.Process(target=worker_for_process, args=(q,data[2500:5000], 1))
     p2.start()
-    p2.join()
     p3 = multiprocessing.Process(target=worker_for_process, args=(q,data[5000:7500], 2))
     p3.start()
-    p3.join()
     p4 = multiprocessing.Process(target=worker_for_process, args=(q,data[7500:], 3))
     p4.start()
+
+    p1.join()
+    p2.join()
+    p3.join()
     p4.join()
 
     result = q.get()
@@ -101,15 +102,16 @@ def worker_for_thread(data, t_idx):
 def process3():
     t1 = threading.Thread(target=worker_for_thread, args=(data[:2500],0, ))
     t1.start()
-    t1.join()
     t2 = threading.Thread(target=worker_for_thread, args=(data[2500:5000],1, ))
     t2.start()
-    t2.join()
     t3 = threading.Thread(target=worker_for_thread, args=(data[5000:7500],2, ))
     t3.start()
-    t3.join()
     t4 = threading.Thread(target=worker_for_thread, args=(data[7500:],3, ))
     t4.start()
+
+    t1.join()
+    t2.join()
+    t3.join()
     t4.join()
 
     print("result : ", sum(result_list))
