@@ -20,7 +20,7 @@ def make_data():
     a_list = []
     b_list = []
 
-    for i in range(10000):
+    for i in range(100000):
         no_list.append(i)
         a_list.append(i+1)
         b_list.append(i+2)
@@ -67,13 +67,13 @@ def worker_for_process(q, data, p_idx):
 def process2():
     q = multiprocessing.Queue()
 
-    p1 = multiprocessing.Process(target=worker_for_process, args=(q,data[:2500], 0))
+    p1 = multiprocessing.Process(target=worker_for_process, args=(q,data[:25000], 0))
     p1.start()
-    p2 = multiprocessing.Process(target=worker_for_process, args=(q,data[2500:5000], 1))
+    p2 = multiprocessing.Process(target=worker_for_process, args=(q,data[25000:50000], 1))
     p2.start()
-    p3 = multiprocessing.Process(target=worker_for_process, args=(q,data[5000:7500], 2))
+    p3 = multiprocessing.Process(target=worker_for_process, args=(q,data[50000:75000], 2))
     p3.start()
-    p4 = multiprocessing.Process(target=worker_for_process, args=(q,data[7500:], 3))
+    p4 = multiprocessing.Process(target=worker_for_process, args=(q,data[75000:], 3))
     p4.start()
 
     p1.join()
@@ -100,13 +100,13 @@ def worker_for_thread(data, t_idx):
  
 
 def process3():
-    t1 = threading.Thread(target=worker_for_thread, args=(data[:2500],0, ))
+    t1 = threading.Thread(target=worker_for_thread, args=(data[:25000],0, ))
     t1.start()
-    t2 = threading.Thread(target=worker_for_thread, args=(data[2500:5000],1, ))
+    t2 = threading.Thread(target=worker_for_thread, args=(data[25000:50000],1, ))
     t2.start()
-    t3 = threading.Thread(target=worker_for_thread, args=(data[5000:7500],2, ))
+    t3 = threading.Thread(target=worker_for_thread, args=(data[50000:75000],2, ))
     t3.start()
-    t4 = threading.Thread(target=worker_for_thread, args=(data[7500:],3, ))
+    t4 = threading.Thread(target=worker_for_thread, args=(data[75000:],3, ))
     t4.start()
 
     t1.join()
